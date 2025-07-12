@@ -19,10 +19,7 @@ end
 
 pathfinding:init(config.miningPlan.size)
 
-parallel.waitForAll(function ()
-   local moveWasValid = pathfinding:executeNextMove();
-   while moveWasValid do
-      coroutine.yield()
-      moveWasValid = pathfinding:executeNextMove();
-   end
-end)
+local moveWasValid = pathfinding:executeNextMove();
+while moveWasValid do
+   moveWasValid = pathfinding:executeNextMove();
+end

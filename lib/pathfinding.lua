@@ -111,7 +111,7 @@ function pathFinding:executeNextMove()
    self.currentStep = self.currentStep + 1
    local canMoveNext, blockIsMineable = self:gatherNextBlockData(isEndOfLayer)
    if not canMoveNext and blockIsMineable then
-      if not self:mineNextBlock() then
+      if not self:mineNextBlock(isEndOfLayer) then
          return false, "Failed to mine block, cannot continue"
       end
    end
