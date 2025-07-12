@@ -62,7 +62,7 @@ local function installFiles(installPath, installRepoUrl, installFileManifestUrl)
    parallel.waitForAll(table.unpack(tasks))
 
    if errorCount > 0 then
-      error(string.format("Failed to download %d files", errorCount))
+      print(string.format("Failed to download %d files", errorCount))
    else
       print("All files downloaded")
    end
