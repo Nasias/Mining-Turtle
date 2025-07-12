@@ -48,7 +48,7 @@ local function installFiles(installPath, installRepoUrl, installFileManifestUrl)
    for _, fileName in ipairs(files) do
       local requestUrl = installRepoUrl .. fileName
       tasks[#tasks + 1] = function()
-         if not downloadFileAsync(requestUrl, fileName) then
+         if not downloadFileAsync(requestUrl, installPath .. fileName) then
             errorCount = errorCount + 1
          end
       end
