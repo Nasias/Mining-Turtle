@@ -3,7 +3,7 @@ local args = {...}
 local inifile = require "lib.inifile"
 local pathfinding = require "lib.pathfinding"
 
-local config = inifile.parse("config.ini")
+local config = inifile.parse("/mine/config.ini")
 
 print("Starting mining program with the following configuration:")
 for section, keys in pairs(config) do

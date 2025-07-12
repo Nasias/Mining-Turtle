@@ -194,7 +194,7 @@ function pathFinding:init(endPosition)
       error("Pathfinding already initialised")
    end
 
-   self.compass = peripheral.find("compass")
+   self.compass = peripheral:find("compass")
 
    self.initialised = true
    self.initialFacing = self:getCurrentDirection()
@@ -208,14 +208,14 @@ function pathFinding:init(endPosition)
    self.lineStepCoordinate = self.initialFacing[self.initialFacing]
 
    if self.lineStepCoordinate == "x" then
-      self.maxStepsPerLineCount = endPosition.x - startPosition.x
-      self.maxLinesPerLayerCount = endPosition.z - startPosition.z
+      self.maxStepsPerLineCount = endPosition.x - self.startPosition.x
+      self.maxLinesPerLayerCount = endPosition.z - self.startPosition.z
    else
-      self.maxStepsPerLineCount = endPosition.z - startPosition.z
-      self.maxLinesPerLayerCount = endPosition.x - startPosition.x
+      self.maxStepsPerLineCount = endPosition.z - self.startPosition.z
+      self.maxLinesPerLayerCount = endPosition.x - self.startPosition.x
    end
 
-   self.maxLayersPerJobCount = endPosition.y - startPosition.y
+   self.maxLayersPerJobCount = endPosition.y - self.startPosition.y
 
    self.voxelData = {} -- 3 dimensional table to hold voxel data
 end
