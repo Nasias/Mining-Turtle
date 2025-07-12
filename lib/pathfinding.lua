@@ -35,7 +35,7 @@ function pathFinding:gatherNextBlockData(isNextBlockDown)
       isMined = false
    }
 
-   print(string.format("Step: %s, Line: %s, Layer: %s", self.currentStep, self.currentLine, self.currentLayer))
+   print(string.format("Step: %s, Line: %s, Layer: %s, Empty: %s, Mineable: %s", self.currentStep, self.currentLine, self.currentLayer, spaceIsEmpty, isMineable))
 
    return spaceIsEmpty, isMineable
 end
@@ -43,17 +43,23 @@ end
 function pathFinding:mineNextBlock(isNextBlockDown)
    local isNextBlockAir, nextBlockIsMineable = self:gatherNextBlockData(isNextBlockDown)
 
-   if isNextBlockAir then
+   if isNextBlockAir then      
+      print("Block is air, moving to next")
       return true -- No block to mine, just move
    end
    
    if nextBlockIsMineable then
+      print("Block is mineable")
       local wasBlockMined, errorText
 
       if not isNextBlockDown then
-         wasBlockMined, errorText = turtle.digDown("right")
-      else
+         print("Digging forward")
          wasBlockMined, errorText = turtle.dig("right")
+         print(string.format("Mined: %s, Error: %s", wasBlockMined, errorText))
+      else
+         print("Digging down")
+         wasBlockMined, errorText = turtle.digDown("right")
+         print(string.format("Mined: %s, Error: %s", wasBlockMined, errorText))
       end
 
       self.voxelData[self.currentStep][self.currentLine][self.currentLayer].isMined = wasBlockMined
@@ -81,6 +87,7 @@ function pathFinding:executeNextMove()
    if isEndOfLayer then
       self.currentLine = 0
       self.currentLayer = self.currentLayer + 1
+      turtle.turnRight()
    end
 
    local isLineTurnSequenceInverted =  (self.currentLayer % 2 == 0 and self.currentLine % 2 == 1)
@@ -94,7 +101,7 @@ function pathFinding:executeNextMove()
 
       if not isLineTurnSequenceInverted then
          turtle.turnRight()
-      else 
+      else
          turtle.turnLeft()
       end
 
