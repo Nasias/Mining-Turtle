@@ -7,15 +7,20 @@ local DEFAULT_INSTALL_PATH = "/mine/"
 local function fetchInstallManifest(installManifestUrl)
    print("Downloading install manifest from: " .. installManifestUrl)
 
-   local response, error, failedResponse = http.get(installManifestUrl)
+   local response, error = http.get(installManifestUrl)
    if not response then
       error("Failed to fetch install manifest: " .. (error or "Unknown error"))
    end
 
-   local manifestContent = response.readAll()
+   local files = {}
+   local manifestItem = response.readLine()
+   while manifestItem ~= nil do
+      files[#files + 1] = manifestItem
+      manifestItem = response.readLine()
+   end
+
    response.close()
-   
-   return manifestContent:replace("\r", ""):split("\n\r")
+   return files
 end
 
 local function downloadFileAsync(remoteFileUrlToDownload, localFilePathToSaveTo)
