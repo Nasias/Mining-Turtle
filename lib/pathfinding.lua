@@ -198,7 +198,7 @@ function pathFinding:init(endPosition)
 
    self.initialised = true
    self.initialFacing = self:getCurrentDirection()
-   self.startPosition = {x = 0, y = 0, z = 0}
+   self.startPosition = { x = 0, y = 0, z = 0 }
    self.endPositionExpected = endPosition
    self.endPositionActual = nil
 

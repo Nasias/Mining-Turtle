@@ -17,7 +17,7 @@ for section, keys in pairs(config) do
    end
 end
 
-pathfinding.init(config.miningPlan.size)
+pathfinding:init(config.miningPlan.size)
 
 parallel.waitForAll(function ()
    local moveWasValid = pathfinding:executeNextMove();

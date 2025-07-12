@@ -50,7 +50,7 @@ local backends = {
 
 local function tryParseCoordinateValue(value)
    if value == nil then return false, nil end
-   local x, y, z = value:match("%d|%d|%d")
+   local x, y, z = value:match("(%d)|(%d)|(%d)")
    if x and y and z then
       return true, { x = tonumber(x), y = tonumber(y), z = tonumber(z) }
    end
