@@ -17,7 +17,7 @@ local function downloadFiles()
       local event, requestUrl, httpHandle = os.pullEvent();
       if event == "http_success" and downloadRequests[requestUrl] then
          print("Saving " .. requestUrl)
-         local fileHandle = fs.open(installPath .. downloadRequests[requestUrl], "w")
+         local fileHandle = fs.open(installPath .. downloadRequests[requestUrl], "w+")
          fileHandle.write(httpHandle.readAll())
          fileHandle.close()
          httpHandle.close()
