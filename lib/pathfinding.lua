@@ -51,7 +51,7 @@ end
 function pathFinding:mineNextBlock(isNextBlockDown)
    local isNextBlockAir, nextBlockIsMineable = self:gatherNextBlockData(isNextBlockDown)
 
-   if isNextBlockAir then      
+   if isNextBlockAir then
       print("Block is air, moving to next")
       return true -- No block to mine, just move
    end
@@ -92,31 +92,34 @@ function pathFinding:executeNextMove()
       return false, "Reached natural end of job, cannot continue"
    end
 
-   if isEndOfLayer then
-      self.currentLine = 0
-      self.currentLayer = self.currentLayer + 1
-      turtle.turnRight()
+   local isTurnRequired = false
+   local isSecondTurnRequired = false
+   if isEndOfCurrentLine then
+      self.currentStep = 1
+
+      if isEndOfLayer then
+         self.currentLine = 1
+         self.currentLayer = self.currentLayer + 1
+         turtle.turnRight()
+         isSecondTurnRequired = true
+      else         
+         self.currentLine = self.currentLine + 1
+      end
+      isTurnRequired = true
    end
 
    local isLineTurnSequenceInverted =  (self.currentLayer % 2 == 0 and self.currentLine % 2 == 1)
                                        or
                                        (self.currentLayer % 2 == 1 and self.currentLine % 2 == 0)
 
-   local isSecondTurnRequired = false
-   if isEndOfCurrentLine then
-      self.currentStep = 0
-      self.currentLine = self.currentLine + 1
-
-      if not isLineTurnSequenceInverted then
-         turtle.turnRight()
-      else
+   if isTurnRequired then
+      if isLineTurnSequenceInverted then
          turtle.turnLeft()
+      else
+         turtle.turnRight()
       end
-
-      isSecondTurnRequired = not isEndOfLayer
    end
 
-   self.currentStep = self.currentStep + 1
    local canMoveNext, blockIsMineable = self:gatherNextBlockData(isEndOfLayer)
    if not canMoveNext and blockIsMineable then
       if not self:mineNextBlock(isEndOfLayer) then
@@ -126,6 +129,7 @@ function pathFinding:executeNextMove()
 
    if not isEndOfLayer then
       turtle.forward()
+      self.currentStep = self.currentStep + 1
    else
       turtle.down()
    end
