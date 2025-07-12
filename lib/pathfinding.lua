@@ -19,6 +19,16 @@ function pathFinding:gatherNextBlockData(isNextBlockDown)
    local spaceIsEmpty = blockName == nil or blockName == "minecraft:air"
    local isMineable = blockData.tags ~= nil and blockData.tags["minecraft:mineable/pickaxe"] or false
 
+   if self.voxelData[self.currentStep] == nil then
+      self.voxelData[self.currentStep] = {}
+   end
+   if self.voxelData[self.currentStep][self.currentLine] == nil then
+      self.voxelData[self.currentStep][self.currentLine] = {}
+   end
+   if self.voxelData[self.currentStep][self.currentLine][self.currentLayer] == nil then
+      self.voxelData[self.currentStep][self.currentLine][self.currentLayer] = {}
+   end
+
    self.voxelData[self.currentStep][self.currentLine][self.currentLayer] = {
       blockName = blockName,
       isMineable = isMineable,
