@@ -1,3 +1,4 @@
 lib/inifile.lua
+lib/pathfinding.lua
 config.ini
 mine.lua
