@@ -5,8 +5,8 @@ local function downloadFiles()
    local files = { "mine.lua", "lib/inifile.lua" }
    local downloadRequests = {}
    for _, fileName in ipairs(files) do
-      local requestUrl = repoUrl + fileName
-      http.request(repoUrl + fileName)
+      local requestUrl = repoUrl .. fileName
+      http.request(requestUrl)
       downloadRequests[requestUrl] = fileName
       print("Downloading " .. requestUrl)
    end
