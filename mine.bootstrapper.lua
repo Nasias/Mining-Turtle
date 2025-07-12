@@ -1,7 +1,7 @@
 local args = {...}
 
 local INSTALL_REPO_URL = "https://raw.githubusercontent.com/Nasias/Mining-Turtle/refs/heads/main/"
-local INSTALL_FILE_MANIFEST_URL = INSTALL_REPO_URL + "install_manifest"
+local INSTALL_FILE_MANIFEST_URL = INSTALL_REPO_URL .. "install_manifest"
 local DEFAULT_INSTALL_PATH = "/mine/"
 
 local function fetchInstallManifest(installManifestUrl)
