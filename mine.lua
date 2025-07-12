@@ -1,7 +1,7 @@
 local args = {...}
 
 local function downloadFiles()
-   local repoUrl = "https://raw.githubusercontent.com/Nasias/Mining-Turtle/refs/heads/main"
+   local repoUrl = "https://raw.githubusercontent.com/Nasias/Mining-Turtle/refs/heads/main/"
    local files = { "mine.lua", "lib/inifile.lua" }
    local downloadRequests = {}
    for _, fileName in ipairs(files) do
