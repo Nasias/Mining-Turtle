@@ -37,7 +37,9 @@ local function install()
 end
 
 if not args or #args == 0 then
-   print("Usage: mine --install | --start")
+   print("mine.lua | Program mode (one is required):")
+   print("  [--install] | Install latest version")
+   print("  [--start]   | Start the program")
 elseif args[1] == "--install" then
    install()
 elseif args[1] == "--start" then
