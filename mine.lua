@@ -2,8 +2,10 @@ local args = {...}
 
 local function downloadFiles()
    local repoUrl = "https://raw.githubusercontent.com/Nasias/Mining-Turtle/refs/heads/main/"
-   local files = { "mine.lua", "lib/inifile.lua" }
+   local files = { "config.ini", "lib/inifile.lua" }
+   local installPath = "/mine/";
    local downloadRequests = {}
+
    for _, fileName in ipairs(files) do
       local requestUrl = repoUrl .. fileName
       http.request(requestUrl)
@@ -15,7 +17,7 @@ local function downloadFiles()
       local event, requestUrl, httpHandle = os.pullEvent();
       if event == "http_success" and downloadRequests[requestUrl] then
          print("Saving " .. requestUrl)
-         local fileHandle = fs.open(downloadRequests[requestUrl], "w")
+         local fileHandle = fs.open(installPath .. downloadRequests[requestUrl], "w")
          fileHandle.write(httpHandle.readAll())
          fileHandle.close()
          httpHandle.close()
