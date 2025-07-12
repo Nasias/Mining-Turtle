@@ -116,7 +116,7 @@ function pathFinding:executeNextMove()
 end
 
 function pathFinding:getCurrentDirection()
-   return self.compass.getDirection()
+   return self.compass.getFacing()
 end
 
 function pathFinding:buildPathHome()
@@ -194,7 +194,7 @@ function pathFinding:init(endPosition)
       error("Pathfinding already initialised")
    end
 
-   self.compass = peripheral:find("compass")
+   self.compass = peripheral.find("compass")
 
    self.initialised = true
    self.initialFacing = self:getCurrentDirection()
