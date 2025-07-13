@@ -200,10 +200,6 @@ function pathFinding:getOrientationTurnsForHomePad()
       return { turtle.turnRight,  turtle.turnRight }
    end
 
-   if directions[currentDirection].direction + directions[self.initialFacing].direction == 0 then
-      return { turtle.turnLeft }
-   end
-
    return { turtle.turnRight }
 end
 
