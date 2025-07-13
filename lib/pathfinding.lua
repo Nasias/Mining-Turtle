@@ -94,23 +94,22 @@ function pathFinding:executeNextMove()
 
    local isTurnRequired = false
    local isSecondTurnRequired = false
+   local isLineTurnSequenceInverted =  (self.currentLayer % 2 == 0 and self.currentLine % 2 == 1)
+                                       or
+                                       (self.currentLayer % 2 == 1 and self.currentLine % 2 == 0)
+
    if isEndOfCurrentLine then
       self.currentStep = 1
-
       if isEndOfLayer then
          self.currentLine = 1
          self.currentLayer = self.currentLayer + 1
          turtle.turnRight()
-         isSecondTurnRequired = true
-      else         
+      else
          self.currentLine = self.currentLine + 1
+         isSecondTurnRequired = true
       end
       isTurnRequired = true
    end
-
-   local isLineTurnSequenceInverted =  (self.currentLayer % 2 == 0 and self.currentLine % 2 == 1)
-                                       or
-                                       (self.currentLayer % 2 == 1 and self.currentLine % 2 == 0)
 
    if isTurnRequired then
       if isLineTurnSequenceInverted then
