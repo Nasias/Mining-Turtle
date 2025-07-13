@@ -94,11 +94,21 @@ function pathFinding:executeNextMove()
 
    local isTurnRequired = false
    local isSecondTurnRequired = false
-   local isLineTurnSequenceInverted =  (self.currentLayer % 2 == 0 and self.currentLine % 2 == 1)
-                                       or
-                                       (self.currentLayer % 2 == 1 and self.currentLine % 2 == 0)
-                                       or
-                                       (self.maxLinesPerLayerCount % 2 == 0 and self.currentLayer % 2 == 1 and self.currentLine % 2 == 1)
+   
+   local isLineCountPerLayerAnEvenNumber = self.maxLinesPerLayerCount % 2 == 0
+   local isCurrentLineAnEvenIndex = self.currentLine % 2 == 0
+   local isCurrentLayerAnEvenIndex = self.currentLayer % 2 == 0
+   
+   local isLineTurnSequenceInverted
+   if not isLineCountPerLayerAnEvenNumber then
+      isLineTurnSequenceInverted =  (isCurrentLineAnEvenIndex and not isCurrentLayerAnEvenIndex)
+                                    or
+                                    (isCurrentLineAnEvenIndex and isCurrentLayerAnEvenIndex)
+   else
+      isLineTurnSequenceInverted =  (isCurrentLineAnEvenIndex and not isCurrentLayerAnEvenIndex)
+                                    or
+                                    (not isCurrentLineAnEvenIndex and isCurrentLayerAnEvenIndex)
+   end
 
    if isEndOfCurrentLine then
       self.currentStep = 1
