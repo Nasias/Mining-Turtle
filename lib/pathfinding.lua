@@ -179,20 +179,7 @@ function pathFinding:buildPathHome()
    return layersToAscend, linesToCross, stepsToTake
 end
 
-function pathFinding:getOrientationTurnsForHomeLine()
-   local currentDirection = self:getCurrentDirection()
-   if directions[currentDirection].axis == directions[self.initialFacing].axis and currentDirection == self.initialFacing then
-      return { turtle.turnRight,  turtle.turnRight }
-   end
-
-   if directions[currentDirection].direction + directions[self.initialFacing].direction ~= 0 then
-      return { turtle.turnLeft }
-   end
-
-   return { turtle.turnRight }
-end
-
-function pathFinding:getOrientationTurnsToCrossLinesToHomeRun()
+function pathFinding:getOrientationTurnsToCrossLinesToHomeLine()
    local currentDirection = self:getCurrentDirection()
    if directions[currentDirection].axis == directions[self.initialFacing].axis then
       if currentDirection == self.initialFacing then
@@ -207,6 +194,19 @@ function pathFinding:getOrientationTurnsToCrossLinesToHomeRun()
    end
 end
 
+function pathFinding:getOrientationTurnsForHomePad()
+   local currentDirection = self:getCurrentDirection()
+   if directions[currentDirection].axis == directions[self.initialFacing].axis and currentDirection ~= self.initialFacing then
+      return { turtle.turnRight,  turtle.turnRight }
+   end
+
+   if directions[currentDirection].direction + directions[self.initialFacing].direction == 0 then
+      return { turtle.turnLeft }
+   end
+
+   return { turtle.turnRight }
+end
+
 function pathFinding:moveToHome()
    local layersToAscend, linesToCross, stepsToTake = self:buildPathHome()
 
@@ -215,7 +215,7 @@ function pathFinding:moveToHome()
    end
 
    if linesToCross > 0 then
-      for _, turn in ipairs(self:getOrientationTurnsToCrossLinesToHomeRun()) do
+      for _, turn in ipairs(self:getOrientationTurnsToCrossLinesToHomeLine()) do
          turn()
       end
       for _ = 1, linesToCross do
@@ -223,7 +223,7 @@ function pathFinding:moveToHome()
       end
    end
 
-   for _, turn in ipairs(self:getOrientationTurnsForHomeLine()) do
+   for _, turn in ipairs(self:getOrientationTurnsForHomePad()) do
       turn()
    end
    for _ = 1, stepsToTake do

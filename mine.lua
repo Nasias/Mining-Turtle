@@ -23,3 +23,5 @@ local moveWasValid = pathfinding:executeNextMove();
 while moveWasValid do
    moveWasValid = pathfinding:executeNextMove();
 end
+
+pathfinding:moveToHome()
