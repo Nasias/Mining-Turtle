@@ -200,7 +200,7 @@ function pathFinding:getOrientationTurnsForHomePad()
       return { turtle.turnRight,  turtle.turnRight }
    end
 
-   return { turtle.turnRight }
+   return { turtle.turnLeft }
 end
 
 function pathFinding:moveToHome()
