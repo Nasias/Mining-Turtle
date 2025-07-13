@@ -97,6 +97,8 @@ function pathFinding:executeNextMove()
    local isLineTurnSequenceInverted =  (self.currentLayer % 2 == 0 and self.currentLine % 2 == 1)
                                        or
                                        (self.currentLayer % 2 == 1 and self.currentLine % 2 == 0)
+                                       or
+                                       (self.maxLinesPerLayerCount % 2 == 0 and self.currentLayer % 2 == 1 and self.currentLine % 2 == 1)
 
    if isEndOfCurrentLine then
       self.currentStep = 1
@@ -128,7 +130,9 @@ function pathFinding:executeNextMove()
 
    if not isEndOfLayer then
       turtle.forward()
-      self.currentStep = self.currentStep + 1
+      if not isEndOfCurrentLine then
+         self.currentStep = self.currentStep + 1
+      end
    else
       turtle.down()
    end
